@@ -22,6 +22,39 @@ const REVIEWS = [
     rating: 4,
     text: "Perfect balance of sweetness and crunch. My go-to order now.",
   },
+
+  // New Reviews
+
+  {
+    id: "sneha",
+    name: "Sneha",
+    rating: 5,
+    text: "The chocolate chip cookies are heavenly. Soft, rich, and packed with flavor.",
+  },
+  {
+    id: "vikram",
+    name: "Vikram",
+    rating: 5,
+    text: "Premium quality ingredients and beautiful packaging. Highly recommended!",
+  },
+  {
+    id: "ananya",
+    name: "Ananya",
+    rating: 5,
+    text: "Every bite feels homemade. My family finished the entire box in one evening.",
+  },
+  {
+    id: "rohit",
+    name: "Rohit",
+    rating: 4,
+    text: "Great variety of flavors and excellent customer service. Will order again.",
+  },
+  {
+    id: "meera",
+    name: "Meera",
+    rating: 5,
+    text: "Absolutely delicious! The cookies arrived fresh and tasted like they came straight from the oven.",
+  },
 ];
 
 function StarIcon({ filled, index }) {
