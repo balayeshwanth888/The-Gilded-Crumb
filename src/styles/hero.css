@@ -1,0 +1,315 @@
+.hero {
+  background: #2b1b14;
+
+  color: var(--vanilla);
+  min-height: 100vh;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+
+  padding: 7.5rem 5% 3rem;
+
+  margin: 0;
+  overflow: hidden;
+}
+
+/* ---------- Content ---------- */
+
+.hero-content {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: hero-rise 0.6s ease forwards;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--caramel);
+  margin-bottom: 1rem;
+  animation: hero-rise 0.6s ease forwards;
+  animation-delay: 0.05s;
+}
+
+.hero-content h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.25rem;
+  color: var(--vanilla);
+  animation: hero-rise 0.6s ease forwards;
+  animation-delay: 0.1s;
+}
+
+.hero-content h1 span {
+  color: var(--caramel);
+  font-style: italic;
+}
+
+.hero-content p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--vanilla-muted);
+  max-width: 38ch;
+  margin: 0 0 2rem;
+  animation: hero-rise 0.6s ease forwards;
+  animation-delay: 0.18s;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+  animation: hero-rise 0.6s ease forwards;
+  animation-delay: 0.26s;
+}
+
+.hero-btn {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 0.85rem 1.6rem;
+  border-radius: 10px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-btn--primary {
+  background: var(--caramel);
+  color: var(--espresso);
+  border: 1.5px solid var(--caramel);
+}
+
+.hero-btn--primary:hover {
+  background: var(--caramel-dark);
+  border-color: var(--caramel-dark);
+}
+
+.hero-btn--secondary {
+  background: transparent;
+  color: var(--vanilla);
+  border: 1.5px solid rgba(248, 236, 217, 0.3);
+}
+
+.hero-btn--secondary:hover {
+  border-color: var(--caramel);
+  color: var(--caramel);
+}
+
+.hero-btn:active {
+  transform: scale(0.97);
+}
+
+.hero-btn:focus-visible {
+  outline: 2px solid var(--vanilla);
+  outline-offset: 2px;
+}
+
+.hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  animation: hero-rise 0.6s ease forwards;
+  animation-delay: 0.34s;
+}
+
+.hero-trust__avatars {
+  display: flex;
+}
+
+.hero-trust__avatars span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--caramel-dark);
+  border: 2px solid var(--espresso);
+  margin-left: -10px;
+}
+
+.hero-trust__avatars span:first-child {
+  margin-left: 0;
+}
+
+.hero-trust p {
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  color: var(--vanilla-muted);
+  margin: 0;
+}
+
+.hero-trust strong {
+  color: var(--vanilla);
+}
+
+/* ---------- Image ---------- */
+
+.hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: hero-rise 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+/* Explicit, equal width/height — guarantees a perfect square
+   regardless of aspect-ratio support or flex stretching. */
+/* Oval frame: width and height are independently sized (not equal),
+   capped against viewport height so it can never overflow the section. */
+.hero-image__frame {
+  position: relative;
+  width: clamp(320px, 35vw, 520px);
+  height: clamp(420px, 70vh, 700px);
+  flex-shrink: 0;
+}
+
+.hero-image__ring {
+  position: absolute;
+  inset: -4%;
+  border: 2px dashed rgba(224, 148, 77, 0.45);
+  border-radius: 50%;
+  animation: hero-spin 40s linear infinite;
+}
+
+.hero-image__frame img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: auto !important;
+  max-width: none !important;
+  object-fit: cover;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.hero-image__crumb {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--caramel-dark);
+  z-index: 0;
+}
+
+.hero-image__crumb--1 {
+  width: 22px;
+  height: 22px;
+  top: 6%;
+  right: 12%;
+}
+
+.hero-image__crumb--2 {
+  width: 14px;
+  height: 14px;
+  bottom: 14%;
+  left: 4%;
+}
+
+.hero-image__crumb--3 {
+  width: 10px;
+  height: 10px;
+  top: 18%;
+  left: 0%;
+}
+
+.hero-image__badge {
+  position: absolute;
+  bottom: 4%;
+  right: -4%;
+  z-index: 2;
+  background: var(--espresso-light);
+  border: 1px solid rgba(248, 236, 217, 0.12);
+  border-radius: 14px;
+  padding: 0.7rem 1rem;
+  text-align: center;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+}
+
+.hero-image__badge-rating {
+  display: block;
+  font-family: "Fraunces", serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--caramel);
+}
+
+.hero-image__badge-label {
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--vanilla-muted);
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes hero-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    text-align: center;
+    padding: 6.5rem 1.5rem 3rem;
+  }
+
+  .hero-content p {
+    margin-inline: auto;
+  }
+
+  .hero-buttons,
+  .hero-trust {
+    justify-content: center;
+  }
+
+  .hero-image {
+    order: -1;
+    margin-bottom: 1rem;
+  }
+
+  .hero-image__frame {
+    width: clamp(200px, 50vw, 280px);
+    height: clamp(250px, 65vw, 360px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-content,
+  .hero-eyebrow,
+  .hero-content h1,
+  .hero-content p,
+  .hero-buttons,
+  .hero-trust,
+  .hero-image,
+  .hero-image__ring {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

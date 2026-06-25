@@ -1,0 +1,248 @@
+.features {
+  --espresso: #2b1b14;
+  --espresso-light: #3d2a1f;
+  --caramel: #e0944d;
+  --caramel-dark: #c97b36;
+  --vanilla: #f8ecd9;
+  --vanilla-muted: #c9ad8f;
+
+  position: relative;
+  background: var(--espresso);
+  color: var(--vanilla);
+  padding: 6rem 1.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* ---------- Ambient crumbs ---------- */
+
+.features__crumb {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--caramel-dark);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: crumb-float 7s ease-in-out infinite alternate;
+}
+
+.features__crumb--1 {
+  width: 18px;
+  height: 18px;
+  top: 12%;
+  left: 6%;
+  animation-delay: 0s;
+}
+
+.features__crumb--2 {
+  width: 10px;
+  height: 10px;
+  top: 70%;
+  left: 12%;
+  animation-delay: 1.2s;
+}
+
+.features__crumb--3 {
+  width: 14px;
+  height: 14px;
+  top: 18%;
+  right: 8%;
+  animation-delay: 0.6s;
+}
+
+.features__crumb--4 {
+  width: 8px;
+  height: 8px;
+  top: 75%;
+  right: 14%;
+  animation-delay: 1.8s;
+}
+
+@keyframes crumb-float {
+  from {
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(-14px) rotate(25deg);
+  }
+}
+
+/* ---------- Intro ---------- */
+
+.features__eyebrow {
+  display: inline-block;
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--caramel);
+  margin-bottom: 0.75rem;
+}
+
+.features__heading {
+  font-family: "Fraunces", serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  letter-spacing: -0.01em;
+  margin: 0 0 3.5rem;
+  color: var(--vanilla);
+}
+
+/* ---------- Grid & cards ---------- */
+
+.feature-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--espresso-light);
+  border: 1px solid rgba(248, 236, 217, 0.08);
+  border-radius: 18px;
+  padding: 2.25rem 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s ease;
+}
+
+.feature-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-card:hover {
+  border-color: rgba(224, 148, 77, 0.4);
+}
+
+/* ---------- Icon badge ---------- */
+
+/* Reveal now uses a transition, not a keyframe animation, so it can't
+   be overwritten when the hover wobble animation kicks in. */
+.feature-card__icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--espresso);
+  position: relative;
+  background-color: var(--caramel-dark);
+  background-image:
+    radial-gradient(circle 3px at 28% 32%, var(--espresso) 99%, transparent 100%),
+    radial-gradient(circle 2.5px at 68% 24%, var(--espresso) 99%, transparent 100%),
+    radial-gradient(circle 3px at 72% 64%, var(--espresso) 99%, transparent 100%),
+    radial-gradient(circle 2px at 35% 70%, var(--espresso) 99%, transparent 100%);
+  opacity: 0;
+  transform: scale(0.4) rotate(-25deg);
+  transition:
+    opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s,
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s;
+}
+
+.feature-card.is-visible .feature-card__icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Dashed ring: spins continuously, speeds up on hover */
+.feature-card__icon::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border: 1.5px dashed rgba(224, 148, 77, 0.55);
+  border-radius: 50%;
+  animation: ring-spin 12s linear infinite;
+}
+
+.feature-card:hover .feature-card__icon::before {
+  animation-duration: 4s;
+}
+
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.feature-card:hover .feature-card__icon {
+  animation: icon-wobble 0.5s ease;
+}
+
+@keyframes icon-wobble {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(-6deg); }
+  60% { transform: rotate(5deg); }
+}
+
+.feature-card__icon svg {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Stroke draw-in for the icon's own path lines */
+.feature-card__icon svg path,
+.feature-card__icon svg circle {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+}
+
+.feature-card.is-visible .feature-card__icon svg path,
+.feature-card.is-visible .feature-card__icon svg circle {
+  animation: icon-draw 0.7s ease forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes icon-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Text ---------- */
+
+.feature-card h3 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0 0 0.6rem;
+  color: var(--vanilla);
+}
+
+.feature-card p {
+  font-family: "Inter", sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--vanilla-muted);
+  margin: 0;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card,
+  .feature-card__icon,
+  .feature-card__icon::before,
+  .features__crumb {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .feature-card__icon {
+    opacity: 1 !important;
+    transform: scale(1) rotate(0deg) !important;
+  }
+
+  .feature-card__icon svg path,
+  .feature-card__icon svg circle {
+    stroke-dashoffset: 0 !important;
+  }
+}
