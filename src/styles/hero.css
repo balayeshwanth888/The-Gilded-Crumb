@@ -9,15 +9,22 @@
   background: var(--espresso);
   color: var(--vanilla);
   box-sizing: border-box;
+  width: 100%;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 7.5rem 1.5rem 3rem;
+  overflow: hidden;
+}
+
+.hero-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   align-items: center;
   gap: 3rem;
-  padding: 7.5rem 1.5rem 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  overflow: hidden;
 }
 
 /* ---------- Content ---------- */
@@ -25,7 +32,12 @@
 .hero-content {
   opacity: 0;
   transform: translateY(16px);
-  animation: hero-rise 0.6s ease forwards;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hero-content.is-loaded {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-eyebrow {
@@ -37,8 +49,14 @@
   text-transform: uppercase;
   color: var(--caramel);
   margin-bottom: 1rem;
-  animation: hero-rise 0.6s ease forwards;
-  animation-delay: 0.05s;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.05s, transform 0.6s ease 0.05s;
+}
+
+.hero-content.is-loaded .hero-eyebrow {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-content h1 {
@@ -49,8 +67,14 @@
   letter-spacing: -0.01em;
   margin: 0 0 1.25rem;
   color: var(--vanilla);
-  animation: hero-rise 0.6s ease forwards;
-  animation-delay: 0.1s;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
+}
+
+.hero-content.is-loaded h1 {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-content h1 span {
@@ -65,8 +89,14 @@
   color: var(--vanilla-muted);
   max-width: 38ch;
   margin: 0 0 2rem;
-  animation: hero-rise 0.6s ease forwards;
-  animation-delay: 0.18s;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.18s, transform 0.6s ease 0.18s;
+}
+
+.hero-content.is-loaded p {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-buttons {
@@ -74,8 +104,14 @@
   gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 2.5rem;
-  animation: hero-rise 0.6s ease forwards;
-  animation-delay: 0.26s;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.26s, transform 0.6s ease 0.26s;
+}
+
+.hero-content.is-loaded .hero-buttons {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-btn {
@@ -125,8 +161,14 @@
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  animation: hero-rise 0.6s ease forwards;
-  animation-delay: 0.34s;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.34s, transform 0.6s ease 0.34s;
+}
+
+.hero-content.is-loaded .hero-trust {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-trust__avatars {
@@ -164,8 +206,13 @@
   align-items: center;
   justify-content: center;
   opacity: 0;
-  animation: hero-rise 0.7s ease forwards;
-  animation-delay: 0.2s;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+}
+
+.hero-image.is-loaded {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-image__frame {
@@ -316,13 +363,6 @@
 
 /* ---------- Animations ---------- */
 
-@keyframes hero-rise {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes hero-spin {
   to {
     transform: rotate(360deg);
@@ -332,8 +372,11 @@
 /* ---------- Responsive ---------- */
 
 @media (max-width: 860px) {
-  .hero {
+  .hero-inner {
     grid-template-columns: 1fr;
+  }
+
+  .hero {
     min-height: auto;
     text-align: center;
     padding: 6.5rem 1.5rem 3rem;
@@ -366,11 +409,14 @@
   .hero-content p,
   .hero-buttons,
   .hero-trust,
-  .hero-image,
-  .hero-image__ring {
-    animation: none !important;
+  .hero-image {
+    transition: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .hero-image__ring {
+    animation: none !important;
   }
 
   .hero-image__track {

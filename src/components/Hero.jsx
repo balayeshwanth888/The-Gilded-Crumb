@@ -19,9 +19,16 @@ export default function Hero() {
   // index is a position in LOOP_SLIDES; 1..N are the real slides.
   const [index, setIndex] = useState(1);
   const [withTransition, setWithTransition] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   const timerRef = useRef(null);
   const dragRef = useRef({ startX: 0, dragging: false });
+
+  // Triggers the text/image entrance animation reliably after mount.
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setLoaded(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   const activeDot = ((index - 1) % N + N) % N;
 
@@ -79,7 +86,7 @@ export default function Hero() {
 
   return (
     <section className="hero" id="home">
-      <div className="hero-content">
+      <div className={`hero-content ${loaded ? "is-loaded" : ""}`}>
         <span className="hero-eyebrow">Baked Daily · Delivered Warm</span>
 
         <h1>
@@ -112,7 +119,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="hero-image">
+      <div className={`hero-image ${loaded ? "is-loaded" : ""}`}>
         <div className="hero-image__frame">
           <div className="hero-image__ring" aria-hidden="true" />
           <div className="hero-image__crumb hero-image__crumb--1" aria-hidden="true" />
