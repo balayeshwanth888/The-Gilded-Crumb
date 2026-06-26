@@ -40,6 +40,15 @@ const COOKIES = [
     bestseller: false,
     image: "https://images.unsplash.com/photo-1551024601-bec78aea704b",
   },
+  {
+    id: "blueberry-muffin",
+    name: "Blueberry Muffin",
+    price: 139,
+    rating: 4.7,
+    reviews: 178,
+    bestseller: false,
+    image: "https://images.unsplash.com/photo-1607958996333-41aef7caefaa",
+  },
 ];
 
 const formatPrice = (value) =>
