@@ -89,9 +89,12 @@ export default function Hero() {
       <div className={`hero-content ${loaded ? "is-loaded" : ""}`}>
         <span className="hero-eyebrow">Baked Daily · Delivered Warm</span>
 
-        <h1>
-          The Ultimate <span>Cookie Experience</span>
-        </h1>
+        <h1 className="hero-title">
+  <span className="word">The</span>{" "}
+  <span className="word">Ultimate</span>{" "}
+  <span className="word accent">Cookie</span>{" "}
+  <span className="word accent">Experience</span>
+</h1>
 
         <p>
           Freshly baked cookies made with love, premium ingredients, and
