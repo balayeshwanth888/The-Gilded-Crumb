@@ -21,6 +21,7 @@
 .footer-brand p {
   color: #d8b08a;
   line-height: 1.8;
+  max-width: 38ch;
 }
 
 .footer-links,
@@ -41,7 +42,9 @@
   color: #d8b08a;
   text-decoration: none;
   margin-bottom: 12px;
-  transition: 0.3s;
+  width: fit-content;
+  border-radius: 4px;
+  transition: color 0.3s;
 }
 
 .footer-links a:hover {
@@ -70,11 +73,20 @@
 
 .newsletter-box input {
   flex: 1;
-  padding: 14px;
+  padding: 14px 18px;
   border: none;
   outline: none;
   background: #3b261d;
   color: white;
+  transition: background 0.3s;
+}
+
+.newsletter-box input::placeholder {
+  color: #8a6c54;
+}
+
+.newsletter-box input:focus {
+  background: #43301f;
 }
 
 .newsletter-box button {
@@ -84,6 +96,15 @@
   border: none;
   font-weight: 600;
   cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.newsletter-box button:hover {
+  background: #ffb863;
+}
+
+.newsletter-box button:active {
+  transform: scale(0.97);
 }
 
 .footer-socials {
@@ -103,7 +124,7 @@
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  transition: 0.3s;
+  transition: background 0.3s, color 0.3s, transform 0.3s;
 }
 
 .footer-socials a:hover {
@@ -115,19 +136,45 @@
 .footer-bottom {
   text-align: center;
   padding-top: 25px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  color: #b78b66;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c79a72;
+}
+
+/* ---------- Keyboard focus ---------- */
+/* The input previously had `outline: none` with nothing replacing it,
+   leaving keyboard users with no visible focus indicator at all. These
+   rules restore a clear, on-brand focus ring without showing it on
+   mouse/touch clicks. */
+
+.footer-links a:focus-visible,
+.footer-socials a:focus-visible,
+.newsletter-box button:focus-visible {
+  outline: 2px solid #f4a64a;
+  outline-offset: 3px;
+}
+
+.newsletter-box input:focus-visible {
+  outline: 2px solid #f4a64a;
+  outline-offset: 2px;
 }
 
 @media (max-width: 992px) {
   .footer-container {
     grid-template-columns: 1fr 1fr;
   }
+
+  .footer-brand {
+    grid-column: span 2;
+  }
 }
 
 @media (max-width: 768px) {
   .footer-container {
     grid-template-columns: 1fr;
+  }
+
+  .footer-brand {
+    grid-column: span 1;
   }
 
   .newsletter-box {
