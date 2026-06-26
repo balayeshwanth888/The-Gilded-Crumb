@@ -39,15 +39,12 @@
 }
 
 .cookie-grid {
-  position: relative;
-  width: 100%;
-  height: 650px;
-
   display: flex;
   justify-content: center;
-  align-items: center;
-
-  perspective: 1800px;
+  align-items: stretch;
+  gap: 1.75rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* ---------- Card entrance ---------- */
@@ -116,15 +113,8 @@
   transition: transform 0.4s ease;
 }
 
-.cookie-card__media img {
-  transition:
-    transform .5s ease,
-    filter .5s ease;
-}
-
 .cookie-card:hover .cookie-card__media img {
-  transform: scale(1.15);
-  filter: saturate(1.15);
+  transform: scale(1.06);
 }
 
 /* ---------- Bestseller badge ---------- */
@@ -320,13 +310,4 @@
   .cta-check {
     stroke-dashoffset: 0;
   }
-}
-
-.cookie-card {
-  will-change: transform;
-}
-
-.cookie-grid:hover .cookie-card:not(:hover) .cookie-card__media img {
-  transform: scale(.95);
-  filter: brightness(.75);
 }
