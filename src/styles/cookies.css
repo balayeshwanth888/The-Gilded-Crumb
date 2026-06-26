@@ -39,36 +39,69 @@
 }
 
 .cookie-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.75rem;
-  max-width: 1100px;
-  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  height: 650px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  perspective: 1800px;
 }
 
 /* ---------- Card entrance ---------- */
 
 .cookie-card {
+  flex: 1;
+  max-width: 280px;
+  min-width: 220px;
+
   background: var(--espresso-light);
   border: 1px solid rgba(248, 236, 217, 0.08);
   border-radius: 18px;
   overflow: hidden;
   text-align: left;
+
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s ease;
+  transform: translateY(20px) scale(0.92);
+
+  transition:
+    transform .45s ease,
+    flex .45s ease,
+    opacity .45s ease,
+    filter .45s ease,
+    box-shadow .45s ease,
+    border-color .3s ease;
 }
 
 .cookie-card.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(.92);
 }
 
-.cookie-card.is-visible:hover {
-  border-color: rgba(224, 148, 77, 0.4);
-  transform: translateY(-4px);
+/* ===== Expanding Cards Animation ===== */
+
+.cookie-grid:hover .cookie-card {
+  transform: scale(.82);
+  opacity: .65;
+  filter: brightness(.7);
 }
 
+.cookie-grid .cookie-card:hover {
+  flex: 1.35;
+  transform: scale(1.08);
+  opacity: 1;
+  filter: brightness(1);
+
+  border-color: rgba(224,148,77,.5);
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.35),
+    0 0 30px rgba(224,148,77,.15);
+
+  z-index: 20;
+}
 .cookie-card__media {
   position: relative;
   aspect-ratio: 4 / 3;
@@ -83,8 +116,15 @@
   transition: transform 0.4s ease;
 }
 
+.cookie-card__media img {
+  transition:
+    transform .5s ease,
+    filter .5s ease;
+}
+
 .cookie-card:hover .cookie-card__media img {
-  transform: scale(1.06);
+  transform: scale(1.15);
+  filter: saturate(1.15);
 }
 
 /* ---------- Bestseller badge ---------- */
@@ -280,4 +320,13 @@
   .cta-check {
     stroke-dashoffset: 0;
   }
+}
+
+.cookie-card {
+  will-change: transform;
+}
+
+.cookie-grid:hover .cookie-card:not(:hover) .cookie-card__media img {
+  transform: scale(.95);
+  filter: brightness(.75);
 }
