@@ -1,13 +1,10 @@
 /*
- * Invisible Navbar CSS Enhancement
- *
- * This stylesheet modifies the existing navbar CSS to make the navigation bar
- * itself invisible (transparent background and no border), while ensuring
- * key elements like the logo/heading and call-to-action button remain visible
- * and prominent.
- */
+====================================================
+THE GILDED CRUMB NAVBAR
+Updated with Authentication Support
+====================================================
+*/
 
-/* --- CSS Variables (retained for consistency) --- */
 :root {
   --espresso: #2b1b14;
   --espresso-light: #3d2a1f;
@@ -22,158 +19,376 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 1000;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+
   padding: 1.1rem 2rem;
-  /* Make background completely transparent */
-  background: transparent !important;
-  /* Remove border */
-  border-bottom: none !important;
-  /* Adjust padding if needed to compensate for border removal, or keep as is */
-  transition: background 0.3s ease, border-color 0.3s ease, padding 0.3s ease;
+
+  background: transparent;
+  transition: .3s;
 }
 
-/* Ensure scrolled state also has a transparent background and no border */
-.navbar--scrolled {
-  background: transparent !important;
-  backdrop-filter: none !important; /* Remove blur if it was applied */
-  border-bottom: none !important;
-  padding: 1.1rem 2rem; /* Maintain consistent padding or adjust as desired */
+.navbar--scrolled{
+  background: rgba(0,0,0,.15);
+  backdrop-filter: blur(12px);
 }
 
-/* --- Logo --- */
-.navbar__logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: "Fraunces", serif;
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--vanilla); /* Ensure good contrast against page content */
-  text-decoration: none;
-  /* Add subtle text shadow for better pop against varied backgrounds */
-  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+.navbar__logo{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+
+  font-size:1.2rem;
+  font-weight:700;
+
+  color:var(--vanilla);
+  text-decoration:none;
+
+  font-family:"Fraunces",serif;
 }
 
-.navbar__logo-mark {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background-color: var(--caramel-dark);
-  background-image:
-    radial-gradient(circle 2px at 30% 35%, var(--espresso) 99%, transparent 100%),
-    radial-gradient(circle 1.6px at 65% 25%, var(--espresso) 99%, transparent 100%),
-    radial-gradient(circle 2px at 70% 65%, var(--espresso) 99%, transparent 100%);
-  /* Add subtle box shadow for depth */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+.navbar__logo-mark{
+  width:26px;
+  height:26px;
+
+  border-radius:50%;
+
+  background:var(--caramel);
+
+  position:relative;
 }
 
-/* --- Desktop links (will be invisible with the navbar, but keeping styles for reference) --- */
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.navbar__logo-mark::before{
+  content:"";
+
+  position:absolute;
+
+  width:4px;
+  height:4px;
+
+  border-radius:50%;
+
+  top:6px;
+  left:7px;
+
+  background:#3b2317;
+
+  box-shadow:
+  8px 4px #3b2317,
+  3px 13px #3b2317,
+  12px 12px #3b2317;
 }
 
-.nav-links a {
-  position: relative;
-  font-family: "Inter", sans-serif;
-  font-size: 0.92rem;
-  font-weight: 500;
-  color: var(--vanilla-muted);
-  text-decoration: none;
-  padding-bottom: 4px;
-  transition: color 0.2s ease;
+/* ===========================
+Desktop Links
+=========================== */
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:40px;
+
+  list-style:none;
 }
 
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1.5px;
-  background: var(--caramel);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.25s ease;
+.nav-links a{
+  color:#f8ecd9;
+  text-decoration:none;
+  font-weight:500;
+
+  transition:.3s;
+
+  position:relative;
 }
 
-.nav-links a:hover {
-  color: var(--vanilla);
+.nav-links a::after{
+  content:"";
+
+  position:absolute;
+
+  width:100%;
+  height:2px;
+
+  left:0;
+  bottom:-5px;
+
+  background:#e0944d;
+
+  transform:scaleX(0);
+
+  transition:.3s;
 }
 
-.nav-links a:hover::after {
-  transform: scaleX(1);
+.nav-links a:hover{
+  color:#fff;
 }
 
-/* --- CTA Button --- */
-.nav-btn {
-  display: inline-flex;
-  align-items: center;
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
-  font-size: 0.88rem;
-  text-decoration: none;
-  color: var(--espresso);
-  background: var(--caramel);
-  border: none;
-  border-radius: 10px;
-  padding: 0.6rem 1.3rem;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
-  /* Add subtle box shadow for depth and pop */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+.nav-links a:hover::after{
+  transform:scaleX(1);
 }
 
-.nav-btn:hover {
-  background: var(--caramel-dark);
-  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
+/* ===========================
+RIGHT SECTION
+=========================== */
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
 }
 
-.nav-btn:active {
-  transform: scale(0.96);
+/* ===========================
+LOGIN BUTTON
+=========================== */
+
+.nav-auth-btn{
+
+  padding:10px 18px;
+
+  border-radius:8px;
+
+  border:1px solid rgba(255,255,255,.2);
+
+  background:rgba(255,255,255,.08);
+
+  color:#fff;
+
+  cursor:pointer;
+
+  transition:.3s;
+
+  font-size:14px;
 }
 
-.nav-btn:focus-visible,
-.navbar__logo:focus-visible,
-.nav-links a:focus-visible {
-  outline: 2px solid var(--caramel);
-  outline-offset: 3px;
+.nav-auth-btn:hover{
+
+  background:#e0944d;
+
+  color:#2b1b14;
 }
 
-/* --- Mobile toggle (will be invisible with the navbar, but keeping styles for reference) --- */
+.nav-auth-btn.signup{
+
+  background:#e0944d;
+
+  color:#2b1b14;
+
+  border:none;
+}
+
+.nav-auth-btn.signup:hover{
+
+  background:#f4ab63;
+
+  transform:translateY(-2px);
+}
+
+/* ===========================
+PROFILE
+=========================== */
+
+.profile{
+  position:relative;
+}
+
+.profile-btn{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  background:transparent;
+
+  border:none;
+
+  color:#fff;
+
+  cursor:pointer;
+
+  font-size:15px;
+}
+
+.profile-btn svg{
+
+  font-size:28px;
+
+  color:#e0944d;
+}
+
+.dropdown{
+
+  position:absolute;
+
+  top:55px;
+
+  right:0;
+
+  width:240px;
+
+  background:#2b1b14;
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
+
+  animation:fadeDown .25s ease;
+}
+
+.dropdown-header{
+
+  padding:18px;
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.dropdown-header h4{
+
+  color:#fff;
+
+  margin-bottom:6px;
+}
+
+.dropdown-header p{
+
+  color:#c9ad8f;
+
+  font-size:13px;
+}
+
+.dropdown button{
+
+  width:100%;
+
+  padding:15px;
+
+  background:none;
+
+  border:none;
+
+  color:white;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.dropdown button:hover{
+
+  background:#e0944d;
+
+  color:#2b1b14;
+}
+
+@keyframes fadeDown{
+
+  from{
+
+    opacity:0;
+
+    transform:translateY(-15px);
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:translateY(0);
+  }
+}
+
+/* ===========================
+CART
+=========================== */
+
+.cart-icon{
+
+  position:relative;
+
+  cursor:pointer;
+
+  color:#f8ecd9;
+
+  transition:.3s;
+}
+
+.cart-icon:hover{
+
+  color:#e0944d;
+
+  transform:scale(1.08);
+}
+
+.cart-count{
+
+  position:absolute;
+
+  top:-8px;
+
+  right:-8px;
+
+  width:20px;
+
+  height:20px;
+
+  border-radius:50%;
+
+  background:#e0944d;
+
+  color:#2b1b14;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  font-size:11px;
+
+  font-weight:bold;
+}
+
+/* ===========================
+MOBILE MENU
+=========================== */
+
 .navbar__toggle {
   display: none;
+
+  width: 34px;
+  height: 34px;
+
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
-  width: 32px;
-  height: 32px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
+  gap: 6px;
+
+  z-index: 1100;
 }
 
 .navbar__toggle span {
   display: block;
+
   width: 100%;
   height: 2px;
-  background: var(--vanilla);
-  border-radius: 2px;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+
+  background: #fff;
+
+  transition: .3s;
 }
 
 .navbar__toggle.is-open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 
 .navbar__toggle.is-open span:nth-child(2) {
@@ -181,113 +396,270 @@
 }
 
 .navbar__toggle.is-open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
 }
 
-/* --- Mobile panel (will be invisible with the navbar, but keeping styles for reference) --- */
+/* ===========================
+MOBILE DRAWER
+=========================== */
+
 .navbar__mobile {
+
   position: fixed;
+
   top: 0;
-  right: 0;
+  right: -100%;
+
+  width: 290px;
   height: 100vh;
-  width: min(78vw, 320px);
-  background: var(--espresso-light);
-  border-left: 1px solid rgba(248, 236, 217, 0.08);
+
+  background: #2b1b14;
+
+  padding: 90px 30px;
+
+  transition: .35s ease;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 2rem;
-  padding: 6rem 2rem 2rem;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
+  justify-content: flex-start;
+
+  gap: 30px;
+
+  box-shadow: -8px 0 30px rgba(0,0,0,.45);
+
+  z-index: 999;
 }
 
 .navbar__mobile.is-open {
-  transform: translateX(0);
+
+  right: 0;
 }
 
 .navbar__mobile ul {
+
   list-style: none;
-  margin: 0;
+
   padding: 0;
+  margin: 0;
+
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+
+  gap: 22px;
+}
+
+.navbar__mobile ul li a {
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-size: 17px;
+
+  transition: .3s;
+}
+
+.navbar__mobile ul li a:hover {
+
+  color: #e0944d;
+}
+
+/* ===========================
+MOBILE AUTH
+=========================== */
+
+.mobile-auth {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-top: 10px;
+}
+
+.mobile-auth .nav-auth-btn {
+
   width: 100%;
 }
 
-.navbar__mobile a {
-  font-family: "Inter", sans-serif;
-  font-size: 1rem;
-  color: var(--vanilla);
-  text-decoration: none;
+.mobile-profile {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
 }
 
-@media (max-width: 768px) {
-  .nav-links,
-  .navbar > .nav-btn {
+.mobile-user {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  color: #fff;
+
+  font-size: 16px;
+
+  font-weight: 600;
+}
+
+.mobile-user svg {
+
+  color: #e0944d;
+
+  font-size: 26px;
+}
+
+/* ===========================
+ORDER BUTTON
+=========================== */
+
+.nav-btn {
+
+  display: inline-flex;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 12px 18px;
+
+  background: #e0944d;
+
+  color: #2b1b14;
+
+  text-decoration: none;
+
+  border-radius: 10px;
+
+  font-weight: 600;
+
+  transition: .3s;
+}
+
+.nav-btn:hover {
+
+  background: #f4ab63;
+
+  transform: translateY(-2px);
+}
+
+/* ===========================
+FOCUS
+=========================== */
+
+.navbar a:focus-visible,
+.navbar button:focus-visible {
+
+  outline: 2px solid #e0944d;
+
+  outline-offset: 4px;
+}
+
+/* ===========================
+RESPONSIVE
+=========================== */
+
+@media (max-width: 992px) {
+
+  .nav-links {
+
     display: none;
   }
 
   .navbar__toggle {
+
     display: flex;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .navbar,
-  .navbar__mobile,
-  .navbar__toggle span,
-  .nav-links a::after {
-    transition: none !important;
+  .nav-right {
+
+    gap: 14px;
+  }
+
+  .profile {
+
+    display: none;
   }
 }
 
-.cart-icon {
-  position: relative;
-  cursor: pointer;
-  color: #f8ecd9;
-  transition: 0.3s;
+@media (max-width: 768px) {
+
+  .navbar {
+
+    padding: 18px 20px;
+  }
+
+  .navbar__logo {
+
+    font-size: 1rem;
+  }
+
+  .nav-auth-btn {
+
+    display: none;
+  }
+
+  .cart-icon {
+
+    margin-right: 6px;
+  }
 }
 
-.cart-icon:hover {
-  color: #e0944d;
-  transform: scale(1.1);
+@media (max-width: 480px) {
+
+  .navbar {
+
+    padding: 16px;
+  }
+
+  .navbar__mobile {
+
+    width: 100%;
+  }
 }
 
-.cart-count {
-  position: absolute;
-  top: -8px;
-  right: -10px;
-
-  width: 20px;
-  height: 20px;
-
-  border-radius: 50%;
-
-  background: #e0944d;
-  color: #2b1b14;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 11px;
-  font-weight: bold;
-
-  animation: pop 0.35s ease;
-}
+/* ===========================
+ANIMATION
+=========================== */
 
 @keyframes pop {
+
   0% {
+
     transform: scale(0);
   }
 
   70% {
+
     transform: scale(1.2);
   }
 
   100% {
+
     transform: scale(1);
+  }
+}
+
+.cart-count {
+
+  animation: pop .35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+
+    animation: none !important;
+
+    transition: none !important;
+
+    scroll-behavior: auto !important;
   }
 }

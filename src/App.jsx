@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -7,16 +9,28 @@ import Footer from "./components/Footer";
 
 import CartProvider from "./components/CartContext";
 
-function App() {
+function Home() {
   return (
-    <CartProvider>
+    <>
       <Navbar />
       <Hero />
       <Features />
       <Cookies />
       <Reviews />
       <Footer />
-    </CartProvider>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <CartProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </CartProvider>
+    </BrowserRouter>
   );
 }
 
