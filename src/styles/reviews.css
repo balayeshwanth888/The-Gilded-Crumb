@@ -1,23 +1,68 @@
-.reviews {
-  --espresso: #2b1b14;
-  --espresso-light: #3d2a1f;
-  --caramel: #e0944d;
-  --caramel-dark: #c97b36;
-  --vanilla: #f8ecd9;
-  --vanilla-muted: #c9ad8f;
+/*
+ * Enhanced CSS for a Reviews/Testimonials Section
+ *
+ * This stylesheet provides styling for a reviews section, including a marquee
+ * effect for review cards, star ratings, and author avatars.
+ * Enhancements focus on maintainability, performance, accessibility, and visual polish.
+ */
 
-  background: var(--espresso);
-  color: var(--vanilla);
-  padding: 6rem 0;
+/* --- CSS Variables --- */
+/* Grouping variables for better organization and clarity */
+:root {
+  /* Color Palette */
+  --color-espresso: #2b1b14;
+  --color-espresso-light: #3d2a1f;
+  --color-caramel: #e0944d;
+  --color-caramel-dark: #c97b36;
+  --color-vanilla: #f8ecd9;
+  --color-vanilla-muted: #c9ad8f;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-xxl: 2.25rem;
+  --spacing-section: 6rem;
+
+  /* Font Sizes */
+  --font-size-sm: 0.75rem;
+  --font-size-md: 0.9rem;
+  --font-size-lg: 0.95rem;
+  --font-size-heading-clamp: clamp(2rem, 4vw, 2.75rem);
+
+  /* Border Radius */
+  --border-radius-card: 18px;
+  --border-radius-avatar: 50%;
+
+  /* Animation Durations */
+  --animation-duration-short: 0.25s;
+  --animation-duration-medium: 0.4s;
+  --animation-duration-long: 0.6s;
+  --animation-duration-marquee: 32s;
+  --animation-duration-quote: 4s;
+  --animation-duration-avatar-pulse: 3s;
+}
+
+/* --- Base Reviews Section --- */
+.reviews {
+  background: var(--color-espresso);
+  color: var(--color-vanilla);
+  padding: var(--spacing-section) 0;
   text-align: center;
   overflow: hidden;
+  /* Ensure proper stacking context for potential z-index usage */
+  position: relative;
 }
 
 .reviews__intro {
-  padding: 0 1.5rem;
+  padding: 0 var(--spacing-xl);
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity var(--animation-duration-long) ease, transform var(--animation-duration-long) ease;
+  /* Optimize for animation performance */
+  will-change: opacity, transform;
 }
 
 .reviews__intro.is-visible {
@@ -28,27 +73,27 @@
 .reviews__eyebrow {
   display: inline-block;
   font-family: "Inter", sans-serif;
-  font-size: 0.75rem;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--caramel);
-  margin-bottom: 0.75rem;
+  color: var(--color-caramel);
+  margin-bottom: var(--spacing-md);
 }
 
 .reviews__heading {
   font-family: "Fraunces", serif;
   font-weight: 700;
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: var(--font-size-heading-clamp);
   letter-spacing: -0.01em;
-  margin: 0 0 3.5rem;
+  margin: 0 0 3.5rem; /* Specific margin, could be a variable if reused */
 }
 
-/* ---------- Marquee ---------- */
-
+/* --- Marquee Section --- */
 .review-marquee {
   position: relative;
   width: 100%;
+  /* Mask for fading edges of the marquee */
   mask-image: linear-gradient(
     to right,
     transparent,
@@ -56,14 +101,18 @@
     black 92%,
     transparent
   );
+  /* Ensure content within marquee is visible */
+  z-index: 1;
 }
 
 .review-marquee__track {
   display: flex;
-  gap: 1.75rem;
+  gap: var(--spacing-xl);
   width: max-content;
-  padding: 0.5rem 0.5rem 1.5rem;
-  animation: marquee-scroll 32s linear infinite;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-xl);
+  animation: marquee-scroll var(--animation-duration-marquee) linear infinite;
+  /* Optimize for animation performance */
+  will-change: transform;
 }
 
 .review-marquee:hover .review-marquee__track {
@@ -79,35 +128,38 @@
   }
 }
 
-/* ---------- Card ---------- */
-
+/* --- Review Card --- */
 .review-card {
   position: relative;
-  flex: 0 0 300px;
-  background: var(--espresso-light);
-  border: 1px solid rgba(248, 236, 217, 0.08);
-  border-radius: 18px;
-  padding: 2.25rem 1.75rem 1.75rem;
+  flex: 0 0 300px; /* Fixed width for cards */
+  background: var(--color-espresso-light);
+  border: 1px solid rgba(var(--color-vanilla-rgb), 0.08);
+  border-radius: var(--border-radius-card);
+  padding: var(--spacing-xxl) var(--spacing-xl) var(--spacing-xl);
   text-align: left;
   overflow: hidden;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  transition: border-color var(--animation-duration-short) ease, transform var(--animation-duration-short) ease;
+  /* Optimize for animation performance */
+  will-change: border-color, transform;
 }
 
 .review-card:hover {
-  border-color: rgba(224, 148, 77, 0.45);
+  border-color: rgba(var(--color-caramel-rgb), 0.45);
   transform: translateY(-4px);
 }
 
 .review-card__quote {
   position: absolute;
   top: -0.5rem;
-  right: 1rem;
+  right: var(--spacing-lg);
   font-family: "Fraunces", serif;
   font-size: 4.5rem;
   line-height: 1;
-  color: rgba(224, 148, 77, 0.18);
+  color: rgba(var(--color-caramel-rgb), 0.18);
   pointer-events: none;
-  animation: quote-float 4s ease-in-out infinite alternate;
+  animation: quote-float var(--animation-duration-quote) ease-in-out infinite alternate;
+  /* Optimize for animation performance */
+  will-change: transform;
 }
 
 @keyframes quote-float {
@@ -121,9 +173,10 @@
 
 .review-card__stars {
   display: flex;
-  gap: 0.25rem;
-  color: var(--caramel);
-  margin-bottom: 1rem;
+  gap: var(--spacing-xs);
+  color: var(--color-caramel);
+  margin-bottom: var(--spacing-lg);
+  /* Ensure stars are accessible, e.g., via aria-label on parent */
 }
 
 .review-star {
@@ -131,7 +184,10 @@
   height: 15px;
   opacity: 0;
   transform: scale(0.3);
-  animation: star-pop 0.4s ease forwards;
+  animation: star-pop var(--animation-duration-medium) ease forwards;
+  /* Assuming these are SVG icons or similar. For accessibility, ensure alt text or aria-labels are used in HTML. */
+  /* Optimize for animation performance */
+  will-change: opacity, transform;
 }
 
 @keyframes star-pop {
@@ -143,10 +199,10 @@
 
 .review-card__text {
   font-family: "Inter", sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--font-size-lg);
   line-height: 1.6;
-  color: var(--vanilla-muted);
-  margin: 0 0 1.5rem;
+  color: var(--color-vanilla-muted);
+  margin: 0 0 var(--spacing-xl);
   position: relative;
   z-index: 1;
 }
@@ -154,37 +210,40 @@
 .review-card__author {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--spacing-md);
 }
 
 .review-card__avatar {
   position: relative;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-avatar);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   font-family: "Fraunces", serif;
   font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--espresso);
-  background-color: var(--caramel-dark);
+  font-size: var(--font-size-lg);
+  color: var(--color-espresso);
+  background-color: var(--color-caramel-dark);
+  /* Complex background image for avatar, consider simplifying if performance is an issue */
   background-image:
-    radial-gradient(circle 1.6px at 28% 32%, var(--espresso) 99%, transparent 100%),
-    radial-gradient(circle 1.3px at 68% 24%, var(--espresso) 99%, transparent 100%),
-    radial-gradient(circle 1.6px at 72% 64%, var(--espresso) 99%, transparent 100%);
+    radial-gradient(circle 1.6px at 28% 32%, var(--color-espresso) 99%, transparent 100%),
+    radial-gradient(circle 1.3px at 68% 24%, var(--color-espresso) 99%, transparent 100%),
+    radial-gradient(circle 1.6px at 72% 64%, var(--color-espresso) 99%, transparent 100%);
 }
 
 .review-card__avatar::after {
   content: "";
   position: absolute;
   inset: -4px;
-  border-radius: 50%;
-  border: 1.5px solid var(--caramel);
+  border-radius: var(--border-radius-avatar);
+  border: 1.5px solid var(--color-caramel);
   opacity: 0;
-  animation: avatar-pulse 3s ease-out infinite;
+  animation: avatar-pulse var(--animation-duration-avatar-pulse) ease-out infinite;
+  /* Optimize for animation performance */
+  will-change: opacity, transform;
 }
 
 @keyframes avatar-pulse {
@@ -205,13 +264,12 @@
 .review-card__author h4 {
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--vanilla);
+  font-size: var(--font-size-md);
+  color: var(--color-vanilla);
   margin: 0;
 }
 
-/* ---------- Reduced motion ---------- */
-
+/* --- Reduced motion for Accessibility --- */
 @media (prefers-reduced-motion: reduce) {
   .reviews__intro {
     transition: none !important;
@@ -222,6 +280,8 @@
     overflow-x: auto;
     width: 100%;
     scroll-snap-type: x proximity;
+    /* Ensure cards are still navigable without animation */
+    justify-content: center; /* Center cards if they don't fill the width */
   }
 
   .review-card__quote,
@@ -233,5 +293,81 @@
     opacity: 1 !important;
     transform: scale(1) !important;
     animation: none !important;
+  }
+}
+
+/* --- Additional Enhancements --- */
+/* Adding RGB variables for easier use in rgba() functions */
+:root {
+  --color-espresso-rgb: 43, 27, 20;
+  --color-espresso-light-rgb: 61, 42, 31;
+  --color-caramel-rgb: 224, 148, 77;
+  --color-caramel-dark-rgb: 201, 123, 54;
+  --color-vanilla-rgb: 248, 236, 217;
+  --color-vanilla-muted-rgb: 201, 173, 143;
+}
+
+/* Improved focus states for accessibility */
+.review-card:focus-within {
+  outline: 2px solid var(--color-caramel);
+  outline-offset: 4px;
+  border-color: var(--color-caramel);
+  transform: translateY(-4px);
+}
+
+/* Adding a subtle shadow to cards for depth */
+.review-card {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.review-card:hover,
+.review-card:focus-within {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Ensuring text contrast for better readability */
+/* The current colors generally have good contrast, but explicitly checking is good practice. */
+/* For example, var(--color-vanilla) on var(--color-espresso) is good. */
+/* var(--color-vanilla-muted) on var(--color-espresso-light) is also acceptable. */
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .reviews {
+    padding: var(--spacing-section) 0;
+  }
+
+  .reviews__heading {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .review-marquee__track {
+    padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-lg);
+  }
+
+  .review-card {
+    flex: 0 0 280px; /* Slightly smaller cards on mobile */
+    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-lg);
+  }
+
+  .review-card__quote {
+    font-size: 3.5rem;
+    top: -1rem;
+    right: var(--spacing-sm);
+  }
+
+  .review-card__text {
+    font-size: var(--font-size-md);
+  }
+}
+
+/* Further refinement for very small screens */
+@media (max-width: 480px) {
+  .reviews__intro {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .review-card {
+    flex: 0 0 90vw; /* Cards take up most of the viewport width */
+    max-width: 300px;
   }
 }

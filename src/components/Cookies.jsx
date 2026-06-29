@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import "../styles/cookies.css";
+import { useCart } from "./CartContext";
 
 const COOKIES = [
   {
@@ -72,6 +73,7 @@ function CheckIcon() {
 
 export default function Cookies() {
   const [addedId, setAddedId] = useState(null);
+  const { addToCart } = useCart();
   const cardRefs = useRef([]);
 
   useEffect(() => {
@@ -98,10 +100,17 @@ export default function Cookies() {
     return () => observer.disconnect();
   }, []);
 
-  const handleAddToCart = (id) => {
-    setAddedId(id);
-    window.setTimeout(() => setAddedId((current) => (current === id ? null : current)), 1600);
-  };
+  const handleAddToCart = (cookie) => {
+  addToCart(cookie);
+
+  setAddedId(cookie.id);
+
+  window.setTimeout(() => {
+    setAddedId((current) =>
+      current === cookie.id ? null : current
+    );
+  }, 1600);
+};
 
   return (
     <section className="cookies" id="cookies">
@@ -143,7 +152,7 @@ export default function Cookies() {
 
               <button
                 className={`cookie-card__cta ${addedId === cookie.id ? "is-added" : ""}`}
-                onClick={() => handleAddToCart(cookie.id)}
+                onClick={() => handleAddToCart(cookie)}
               >
                 <span className="cta-label cta-label--default">Add to Cart</span>
                 <span className="cta-label cta-label--added">

@@ -1,11 +1,23 @@
-.navbar {
+/*
+ * Invisible Navbar CSS Enhancement
+ *
+ * This stylesheet modifies the existing navbar CSS to make the navigation bar
+ * itself invisible (transparent background and no border), while ensuring
+ * key elements like the logo/heading and call-to-action button remain visible
+ * and prominent.
+ */
+
+/* --- CSS Variables (retained for consistency) --- */
+:root {
   --espresso: #2b1b14;
   --espresso-light: #3d2a1f;
   --caramel: #e0944d;
   --caramel-dark: #c97b36;
   --vanilla: #f8ecd9;
   --vanilla-muted: #c9ad8f;
+}
 
+.navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -16,20 +28,23 @@
   justify-content: space-between;
   gap: 1.5rem;
   padding: 1.1rem 2rem;
-  background: transparent;
-  border-bottom: 1px solid transparent;
+  /* Make background completely transparent */
+  background: transparent !important;
+  /* Remove border */
+  border-bottom: none !important;
+  /* Adjust padding if needed to compensate for border removal, or keep as is */
   transition: background 0.3s ease, border-color 0.3s ease, padding 0.3s ease;
 }
 
+/* Ensure scrolled state also has a transparent background and no border */
 .navbar--scrolled {
-  background: rgba(43, 27, 20, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(248, 236, 217, 0.08);
-  padding: 0.75rem 2rem;
+  background: transparent !important;
+  backdrop-filter: none !important; /* Remove blur if it was applied */
+  border-bottom: none !important;
+  padding: 1.1rem 2rem; /* Maintain consistent padding or adjust as desired */
 }
 
-/* ---------- Logo ---------- */
-
+/* --- Logo --- */
 .navbar__logo {
   display: inline-flex;
   align-items: center;
@@ -37,8 +52,10 @@
   font-family: "Fraunces", serif;
   font-weight: 600;
   font-size: 1.1rem;
-  color: var(--vanilla);
+  color: var(--vanilla); /* Ensure good contrast against page content */
   text-decoration: none;
+  /* Add subtle text shadow for better pop against varied backgrounds */
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
 }
 
 .navbar__logo-mark {
@@ -51,10 +68,11 @@
     radial-gradient(circle 2px at 30% 35%, var(--espresso) 99%, transparent 100%),
     radial-gradient(circle 1.6px at 65% 25%, var(--espresso) 99%, transparent 100%),
     radial-gradient(circle 2px at 70% 65%, var(--espresso) 99%, transparent 100%);
+  /* Add subtle box shadow for depth */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* ---------- Desktop links ---------- */
-
+/* --- Desktop links (will be invisible with the navbar, but keeping styles for reference) --- */
 .nav-links {
   display: flex;
   align-items: center;
@@ -96,8 +114,7 @@
   transform: scaleX(1);
 }
 
-/* ---------- CTA ---------- */
-
+/* --- CTA Button --- */
 .nav-btn {
   display: inline-flex;
   align-items: center;
@@ -112,10 +129,13 @@
   padding: 0.6rem 1.3rem;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.15s ease;
+  /* Add subtle box shadow for depth and pop */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .nav-btn:hover {
   background: var(--caramel-dark);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .nav-btn:active {
@@ -129,8 +149,7 @@
   outline-offset: 3px;
 }
 
-/* ---------- Mobile toggle ---------- */
-
+/* --- Mobile toggle (will be invisible with the navbar, but keeping styles for reference) --- */
 .navbar__toggle {
   display: none;
   flex-direction: column;
@@ -165,8 +184,7 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ---------- Mobile panel ---------- */
-
+/* --- Mobile panel (will be invisible with the navbar, but keeping styles for reference) --- */
 .navbar__mobile {
   position: fixed;
   top: 0;
@@ -222,5 +240,54 @@
   .navbar__toggle span,
   .nav-links a::after {
     transition: none !important;
+  }
+}
+
+.cart-icon {
+  position: relative;
+  cursor: pointer;
+  color: #f8ecd9;
+  transition: 0.3s;
+}
+
+.cart-icon:hover {
+  color: #e0944d;
+  transform: scale(1.1);
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  background: #e0944d;
+  color: #2b1b14;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 11px;
+  font-weight: bold;
+
+  animation: pop 0.35s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+
+  70% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }

@@ -1,20 +1,22 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Cookies from "./components/Cookies";
 import Features from "./components/Features";
+import Cookies from "./components/Cookies";
 import Reviews from "./components/Reviews";
 import Footer from "./components/Footer";
 
+import CartProvider from "./components/CartContext";
+
 function App() {
   return (
-    <>
+    <CartProvider>
       <Navbar />
       <Hero />
-      <Cookies />
       <Features />
+      <Cookies />
       <Reviews />
       <Footer />
-    </>
+    </CartProvider>
   );
 }
 
