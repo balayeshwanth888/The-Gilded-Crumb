@@ -1,3 +1,4 @@
+// Signup.jsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/signup.css";
@@ -14,13 +15,24 @@ export default function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify(form)
-    );
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const exists = users.find((u) => u.email === form.email);
+    if (exists) {
+      alert("An account with this email already exists.");
+      return;
+    }
+
+    if (form.password.length < 6) {
+      alert("Password must be at least 6 characters.");
+      return;
+    }
+
+    const newUser = { id: Date.now(), ...form };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
 
     alert("Account Created Successfully!");
-
     navigate("/login");
   };
 
@@ -33,47 +45,30 @@ export default function Signup() {
           type="text"
           placeholder="Full Name"
           required
-          onChange={(e) =>
-            setForm({
-              ...form,
-              name: e.target.value,
-            })
-          }
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
 
         <input
           type="email"
           placeholder="Email"
           required
-          onChange={(e) =>
-            setForm({
-              ...form,
-              email: e.target.value,
-            })
-          }
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
 
         <input
           type="password"
           placeholder="Password"
           required
-          onChange={(e) =>
-            setForm({
-              ...form,
-              password: e.target.value,
-            })
-          }
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
 
-        <button type="submit">
-          Create Account
-        </button>
+        <button type="submit">Create Account</button>
 
         <p>
-          Already have an account?{" "}
-          <Link to="/login">
-            Login
-          </Link>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
       </form>
     </div>

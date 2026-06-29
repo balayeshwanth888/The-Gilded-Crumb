@@ -1,3 +1,4 @@
+/* ============== cookies.css (updated) ============== */
 :root {
   /* ── Core palette ── */
   --espresso: #2b1b14;
@@ -201,6 +202,31 @@
   transition-delay: 0s !important;
 }
 
+/* ── Continuous gentle float ── */
+.cookie-card {
+  animation: floating 6s ease-in-out infinite;
+}
+
+.cookie-card:nth-child(2) { animation-delay: .5s; }
+.cookie-card:nth-child(3) { animation-delay: 1s; }
+.cookie-card:nth-child(4) { animation-delay: 1.5s; }
+
+@keyframes floating {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+/*
+ * Pause the floating animation on hover. Animations always win over
+ * transitions on the same property (transform), so without this the
+ * floating keyframes would keep overriding the hover lift/scale below
+ * every frame, fighting the intended hover effect.
+ */
+.cookie-card:hover,
+.cookie-grid:hover .cookie-card {
+  animation-play-state: paused;
+}
+
 /* ── Grid-level hover: dim siblings ── */
 
 .cookie-grid:hover .cookie-card {
@@ -223,7 +249,6 @@
   filter: brightness(1.05) saturate(1.1);
   border-color: rgba(224, 148, 77, 0.6);
   box-shadow: var(--shadow-card-hover);
-  z-index: 20;
 }
 
 /* ── Image area ── */
@@ -524,43 +549,14 @@
   to { stroke-dashoffset: 0; }
 }
 
-/* ── Cart count pill ── */
-
-.cart-count {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 2.5rem;
-  padding: 0.55rem 1.25rem;
-  background: rgba(224, 148, 77, 0.1);
-  border: 1px solid rgba(224, 148, 77, 0.35);
-  border-radius: 999px;
-  font-family: "Inter", sans-serif;
-  font-size: 0.85rem;
-  color: var(--caramel);
-  font-weight: 600;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.4s ease, transform 0.4s var(--ease-spring), box-shadow 0.3s ease;
-  position: relative;
-  z-index: 2;
-  backdrop-filter: blur(10px);
-}
-
-.cart-count.show {
-  opacity: 1;
-  transform: translateY(0);
-  box-shadow: 0 8px 24px rgba(224, 148, 77, 0.2), 0 0 0 1px rgba(224, 148, 77, 0.1);
-}
-
-.cart-count::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--caramel);
-  box-shadow: 0 0 8px var(--caramel);
-}
+/*
+ * NOTE: the cart-count "pill" badge that used to live here has been removed.
+ * It was unused dead CSS (Cookies.jsx never renders it) and it collided
+ * with the real .cart-count badge defined in navbar.css — both targeted
+ * the same class name with conflicting layouts (small circular badge vs.
+ * a wide pill), so whichever stylesheet loaded last would win
+ * unpredictably. The real cart badge now lives only in navbar.css.
+ */
 
 /* ── Responsive ── */
 
@@ -603,29 +599,4 @@
   .cta-label--default { transform: none; opacity: 1; }
   .cta-label--added { display: none; }
   .cta-check { stroke-dashoffset: 0; }
-}
-
-.cookie-card {
-    animation: floating 6s ease-in-out infinite;
-}
-
-.cookie-card:nth-child(2) {
-    animation-delay: .5s;
-}
-
-.cookie-card:nth-child(3) {
-    animation-delay: 1s;
-}
-
-.cookie-card:nth-child(4) {
-    animation-delay: 1.5s;
-}
-
-@keyframes floating {
-    0%,100%{
-        transform: translateY(0px);
-    }
-    50%{
-        transform: translateY(-8px);
-    }
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
@@ -8,36 +10,62 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem("loggedIn");
-    const savedUser = localStorage.getItem("user");
+    try {
+      const loggedIn = localStorage.getItem("loggedIn");
+      const savedUser = localStorage.getItem("currentUser");
 
-    if (loggedIn === "true" && savedUser) {
-      setUser(JSON.parse(savedUser));
+      if (loggedIn === "true" && savedUser) {
+        setUser(JSON.parse(savedUser));
+      }
+    } catch (err) {
+      console.error("Failed to restore session:", err);
     }
   }, []);
 
   const login = (email, password) => {
-    const savedUser = JSON.parse(localStorage.getItem("user"));
+    try {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const matchedUser = users.find(
+        (u) => u.email === email && u.password === password
+      );
 
-    if (
-      savedUser &&
-      savedUser.email === email &&
-      savedUser.password === password
-    ) {
-      localStorage.setItem("loggedIn", "true");
-      setUser(savedUser);
-      return true;
+      if (matchedUser) {
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("currentUser", JSON.stringify(matchedUser));
+        setUser(matchedUser);
+        return true;
+      }
+
+      return false;
+    } catch (err) {
+      console.error("Login failed:", err);
+      return false;
     }
-
-    return false;
   };
 
   const signup = (newUser) => {
-    localStorage.setItem("user", JSON.stringify(newUser));
+    try {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+
+      const exists = users.find((u) => u.email === newUser.email);
+      if (exists) {
+        return { success: false, message: "Email already exists" };
+      }
+
+      const userWithId = { id: Date.now(), ...newUser };
+      users.push(userWithId);
+      localStorage.setItem("users", JSON.stringify(users));
+
+      return { success: true, user: userWithId };
+    } catch (err) {
+      console.error("Signup failed:", err);
+      return { success: false, message: "Something went wrong" };
+    }
   };
 
   const logout = () => {
     localStorage.removeItem("loggedIn");
+    localStorage.removeItem("currentUser");
     setUser(null);
   };
 

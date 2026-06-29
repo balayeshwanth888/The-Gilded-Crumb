@@ -1,3 +1,4 @@
+// Login.jsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
@@ -11,22 +12,20 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const user = JSON.parse(localStorage.getItem("user"));
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    if (!user) {
-      alert("No account found. Please Sign Up.");
+    const matchedUser = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    if (!matchedUser) {
+      alert("Invalid email or password.");
       return;
     }
 
-    if (
-      email === user.email &&
-      password === user.password
-    ) {
-      localStorage.setItem("loggedIn", "true");
-      navigate("/");
-    } else {
-      alert("Invalid Email or Password");
-    }
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("currentUser", JSON.stringify(matchedUser));
+    navigate("/");
   };
 
   return (
@@ -38,9 +37,7 @@ export default function Login() {
           type="email"
           placeholder="Email Address"
           value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
 
@@ -48,21 +45,14 @@ export default function Login() {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        <button type="submit">
-          Login
-        </button>
+        <button type="submit">Login</button>
 
         <p>
-          Don't have an account?{" "}
-          <Link to="/signup">
-            Sign Up
-          </Link>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
         </p>
       </form>
     </div>

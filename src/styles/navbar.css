@@ -1,3 +1,4 @@
+/* ============== navbar.css (updated) ============== */
 /*
 ====================================================
 THE GILDED CRUMB NAVBAR
@@ -325,6 +326,12 @@ CART
   transform:scale(1.08);
 }
 
+/*
+ * This is now the ONLY .cart-count definition in the project.
+ * (A duplicate, conflicting "pill" version that lived in cookies.css
+ * has been removed — it was unused dead code and was colliding with
+ * this real badge.)
+ */
 .cart-count{
 
   position:absolute;
@@ -352,6 +359,8 @@ CART
   font-size:11px;
 
   font-weight:bold;
+
+  animation: pop .35s ease;
 }
 
 /* ===========================
@@ -643,11 +652,6 @@ ANIMATION
 
     transform: scale(1);
   }
-}
-
-.cart-count {
-
-  animation: pop .35s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

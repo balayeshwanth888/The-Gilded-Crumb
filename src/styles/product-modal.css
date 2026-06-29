@@ -1,0 +1,296 @@
+/* Product Modal Styles */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.product-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #241712;
+  border-radius: 20px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+  z-index: 1001;
+  max-width: 900px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: hidden; /* no scrollbar — content is sized to fit */
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, -40%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #e0944d;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1002;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 5px 10px;
+}
+
+.modal-close:hover {
+  color: #f3ab67;
+  transform: rotate(90deg);
+}
+
+.modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 24px;
+  max-height: 90vh;
+}
+
+.modal-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(224, 148, 77, 0.1), rgba(195, 124, 50, 0.1));
+  /* Caps the image column so the whole modal stays under the viewport height */
+  max-height: 58vh;
+  aspect-ratio: 1 / 1;
+}
+
+.modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* shows the full image, nothing cropped */
+  border-radius: 15px;
+}
+
+.modal-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.modal-details h2 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.modal-description {
+  color: #c9ad8f;
+  font-size: 13px;
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.modal-rating {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.modal-rating svg {
+  width: 18px;
+  height: 18px;
+  color: #e0944d;
+  fill: #e0944d;
+}
+
+.modal-rating span {
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.modal-rating .reviews {
+  color: #c9ad8f;
+  font-weight: 400;
+}
+
+.modal-price {
+  font-size: 20px;
+  color: #e0944d;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.ingredients-section {
+  margin-bottom: 12px;
+}
+
+.ingredients-section h3 {
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.ingredients-list li {
+  color: #c9ad8f;
+  font-size: 12px;
+  padding: 6px 10px;
+  background: rgba(224, 148, 77, 0.1);
+  border-left: 3px solid #e0944d;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.ingredients-list li:hover {
+  background: rgba(224, 148, 77, 0.2);
+  transform: translateX(5px);
+}
+
+.modal-add-to-cart {
+  width: 100%;
+  padding: 11px;
+  background: #e0944d;
+  color: #2b1b14;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.modal-add-to-cart:hover {
+  background: #f3ab67;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(224, 148, 77, 0.3);
+}
+
+.modal-add-to-cart:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-modal {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .modal-content {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 24px 18px;
+    max-height: 95vh;
+    overflow-y: auto; /* on small screens, stacked layout may need to scroll */
+  }
+
+  .modal-image {
+    max-height: 40vh;
+    aspect-ratio: 4 / 3;
+  }
+
+  .modal-details h2 {
+    font-size: 22px;
+  }
+
+  .modal-price {
+    font-size: 22px;
+  }
+
+  .ingredients-list {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-close {
+    top: 14px;
+    right: 14px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-modal {
+    width: 98%;
+    border-radius: 15px;
+  }
+
+  .modal-content {
+    padding: 18px 14px;
+    gap: 14px;
+  }
+
+  .modal-image {
+    max-height: 32vh;
+  }
+
+  .modal-details h2 {
+    font-size: 19px;
+  }
+
+  .modal-description {
+    font-size: 13px;
+  }
+
+  .modal-price {
+    font-size: 19px;
+  }
+
+  .ingredients-section h3 {
+    font-size: 14px;
+  }
+
+  .ingredients-list li {
+    font-size: 12px;
+    padding: 7px 10px;
+  }
+
+  .modal-add-to-cart {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
